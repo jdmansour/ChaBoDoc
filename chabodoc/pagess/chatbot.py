@@ -11,7 +11,8 @@ from nltk.stem.lancaster import LancasterStemmer
 
 from stopwords import worte
 from random import choice
-from pages.chat_tree import answer_tree
+#from pages.chat_tree import answer_tree
+from pagess.chat_tree import answer_tree
 
 import os
 import dropbox
