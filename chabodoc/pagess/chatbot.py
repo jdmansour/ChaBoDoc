@@ -115,6 +115,7 @@ def predict(STEMMER, message, model, words, labels, data, device):
 
 
 def app():
+    sicherheiten = [0,0,0]
     st.markdown("## 2. ChatBot")
 
     st.markdown("""Hier kannst du mit **Melinda** chatten.""")
@@ -226,8 +227,6 @@ def app():
                 st.markdown(markdown_string, unsafe_allow_html=True)
 
     with st.expander("Details zu aktueller Antwort von Melinda"):
-        if sicherheiten not in locals():
-            sicherheiten = [0,0,0]
         tabelle = {"Label": tags, "Sicherheit": [str(i.item()) for i in sicherheiten]}
         st.table(tabelle)
         """tag_string = "Tag: " + str(st.session_state["tag"][-1])
