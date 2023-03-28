@@ -127,7 +127,7 @@ def app():
 
     data = load_data_from_json()
     words, labels, docs_x, docs_y = prepare_data(STEMMER, data)
-    sicherheiten = [torch.tensor([1/len(labels)]) for l in labels]
+    sicherheiten = [torch.tensor([1/len(labels)]) for _ in labels]
     tags = labels
 
     if "chatbot_model_trained" not in st.session_state:
@@ -228,7 +228,7 @@ def app():
                 st.markdown(markdown_string, unsafe_allow_html=True)
 
     with st.expander("Details zu aktueller Antwort von Melinda"):
-        tabelle = {"Label": tags, "Sicherheit": [str(i.item()) for i in sicherheiten]}
+        tabelle = {"Label": tags, "Sicherheit": [str(i.item()) if i>0.001 else "<0.001" for i in sicherheiten]}
         st.table(tabelle)
         """tag_string = "Tag: " + str(st.session_state["tag"][-1])
         st.markdown(tag_string)
