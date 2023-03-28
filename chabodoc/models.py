@@ -8,7 +8,7 @@ STEMMER = nltk.stem.lancaster.LancasterStemmer()
 import os
 import json
 
-PATHDATA = "data/"
+PATHDATA = "chabodoc/data/"
 PATHSTOP = PATHDATA+"stopwords/"
 PATHWORDS = PATHDATA+"words/"
 PATHNET = PATHDATA+"networks/"
