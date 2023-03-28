@@ -1,5 +1,6 @@
 import streamlit as st
 import nltk
+import os
 
 import pandas as pd
 
@@ -19,6 +20,9 @@ def app():
 
     st.markdown(
         "Hier können die ChatBots verschiedener Gruppen geladen und getestet werden."
+    )
+    st.markdown(
+        os.getcwd()
     )
 
     st.markdown("---")

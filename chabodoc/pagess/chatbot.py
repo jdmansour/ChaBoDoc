@@ -15,7 +15,7 @@ from random import choice
 from pagess.chat_tree import answer_tree
 
 import os
-import dropbox
+#import dropbox
 
 
 class Classifier(nn.Module):
@@ -210,9 +210,9 @@ def app():
             with open("testfile.txt", "wb") as file:
                 file.writelines(st.session_state["conversation"])
                 file.writelines([i for i in zip(st.session_state["tag"],st.session_state["sicher"])])
-            with open("testfile.txt", "rb") as file:
-                dbx = dropbox.Dropbox(os.environ["ACC_TOKEN"])
-                dbx.files_upload(file.read(), "/testfile.txt")
+            #with open("testfile.txt", "rb") as file:
+            #    dbx = dropbox.Dropbox(os.environ["ACC_TOKEN"])
+            #    dbx.files_upload(file.read(), "/testfile.txt")
         except:
             print("Variable nicht gesetzt")
 
