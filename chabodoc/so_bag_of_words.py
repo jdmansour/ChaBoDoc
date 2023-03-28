@@ -1,6 +1,6 @@
 import streamlit as st
-#from pagess.bag_of_words import app
-from pages_old2.bag_of_words import app
+from pagess.bag_of_words import app
+#from pages_old2.bag_of_words import app
 
 st.set_page_config(
     page_title="ChaBoDoc",
