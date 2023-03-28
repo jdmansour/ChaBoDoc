@@ -40,7 +40,7 @@ def download_punkt():
 @st.cache(suppress_st_warning=True)
 def load_data_from_json():
     # st.write("Loading data from json")
-    with open("/app/chabodoc/intents.json", encoding="utf-8") as file:
+    with open("intents.json", encoding="utf-8") as file:
         data = json.load(file)
     return data
 
