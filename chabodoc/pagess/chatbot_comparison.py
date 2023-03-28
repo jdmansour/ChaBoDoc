@@ -21,9 +21,6 @@ def app():
     st.markdown(
         "Hier können die ChatBots verschiedener Gruppen geladen und getestet werden."
     )
-    st.markdown(
-        os.listdir()
-    )
 
     st.markdown("---")
 

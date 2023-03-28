@@ -226,6 +226,8 @@ def app():
                 st.markdown(markdown_string, unsafe_allow_html=True)
 
     with st.expander("Details zu aktueller Antwort von Melinda"):
+        if sicherheiten is None:
+            sicherheiten = [0,0,0]
         tabelle = {"Label": tags, "Sicherheit": [str(i.item()) for i in sicherheiten]}
         st.table(tabelle)
         """tag_string = "Tag: " + str(st.session_state["tag"][-1])
