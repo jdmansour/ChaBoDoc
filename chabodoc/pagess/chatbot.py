@@ -115,8 +115,6 @@ def predict(STEMMER, message, model, words, labels, data, device):
 
 
 def app():
-    sicherheiten = [0 for l in labels]
-    tags = labels
     st.markdown("## 2. ChatBot")
 
     st.markdown("""Hier kannst du mit **Melinda** chatten.""")
@@ -129,6 +127,8 @@ def app():
 
     data = load_data_from_json()
     words, labels, docs_x, docs_y = prepare_data(STEMMER, data)
+    sicherheiten = [0 for l in labels]
+    tags = labels
 
     if "chatbot_model_trained" not in st.session_state:
         dims = [507, 253, 14]
