@@ -11,10 +11,10 @@ from nltk.stem.lancaster import LancasterStemmer
 
 from stopwords import worte
 from random import choice
-from pagess.chat_tree import answer_tree
+from pages.chat_tree import answer_tree
 
 import os
-#import dropbox
+import dropbox
 
 
 class Classifier(nn.Module):
@@ -31,15 +31,15 @@ class Classifier(nn.Module):
         return out
 
 
-@st.cache_resource#(suppress_st_warning=True)
+@st.cache(suppress_st_warning=True)
 def download_punkt():
     nltk.download("punkt")
 
 
-@st.cache_data#(suppress_st_warning=True)
+@st.cache(suppress_st_warning=True)
 def load_data_from_json():
     # st.write("Loading data from json")
-    with open("intents.json", encoding="utf-8") as file:
+    with open("/app/chabodoc/intents.json", encoding="utf-8") as file:
         data = json.load(file)
     return data
 
@@ -64,8 +64,8 @@ def bagofwords(STEMMER, s, words):
     return torch.tensor(bag).float()
 
 
-@st.cache_data#(suppress_st_warning=True)
-def prepare_data(_STEMMER, data):
+@st.cache(suppress_st_warning=True)
+def prepare_data(STEMMER, data):
     # st.write("Prepare data")
     words = []  # Wörter, die der Chatbot erkennen können soll
     labels = []  # zugehörige Labels (siehe Output unten)
@@ -87,7 +87,7 @@ def prepare_data(_STEMMER, data):
     words = [
         w for w in words if not w in worte
     ]  # Schmeiße Stopwords raus (sowas wie "als" oder "habe"), die irrelevant für die Klassifizierung sind
-    words = [_STEMMER.stem(w.lower()) for w in words if w != "?"]
+    words = [STEMMER.stem(w.lower()) for w in words if w != "?"]
     words = sorted(list(set(words)))
     labels = sorted(labels)
 
@@ -131,7 +131,7 @@ def app():
         dims = [507, 253, 14]
         st.session_state["chatbot_model_trained"] = Classifier(dims).to(device)
         st.session_state["chatbot_model_trained"].load_state_dict(
-            torch.load("chatbot_model_trained.pth")
+            torch.load("/app/chabodoc/chatbot_model_trained.pth")
         )
 
     st.session_state["chatbot_model_trained"].eval()
@@ -209,9 +209,9 @@ def app():
             with open("testfile.txt", "wb") as file:
                 file.writelines(st.session_state["conversation"])
                 file.writelines([i for i in zip(st.session_state["tag"],st.session_state["sicher"])])
-            #with open("testfile.txt", "rb") as file:
-            #    dbx = dropbox.Dropbox(os.environ["ACC_TOKEN"])
-            #    dbx.files_upload(file.read(), "/testfile.txt")
+            with open("testfile.txt", "rb") as file:
+                dbx = dropbox.Dropbox(os.environ["ACC_TOKEN"])
+                dbx.files_upload(file.read(), "/testfile.txt")
         except:
             print("Variable nicht gesetzt")
 
@@ -224,10 +224,9 @@ def app():
                 markdown_string = "<p style='text-align: left;'>" + entry + "</p>"
                 st.markdown(markdown_string, unsafe_allow_html=True)
 
-    if ("tags" in locals() or "tags" in globals()):
-        with st.expander("Details zu aktueller Antwort von Melinda"):
-            tabelle = {"Label": tags, "Sicherheit": [str(i.item()) for i in sicherheiten]}
-            st.table(tabelle)
+    with st.expander("Details zu aktueller Antwort von Melinda"):
+        tabelle = {"Label": tags, "Sicherheit": [str(i.item()) for i in sicherheiten]}
+        st.table(tabelle)
         """tag_string = "Tag: " + str(st.session_state["tag"][-1])
         st.markdown(tag_string)
         sicher_string = "Sicherheit: " + str(st.session_state["sicher"][-1])

@@ -8,7 +8,7 @@ from models import Netpicker
 #from utils import Classifier
 #import matplotlib
 
-@st.cache_resource#(suppress_st_warning=True)
+@st.cache(suppress_st_warning=True)
 def download_punkt():
     nltk.download("punkt")
 

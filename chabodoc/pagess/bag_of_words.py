@@ -12,21 +12,21 @@ from nltk.stem.lancaster import LancasterStemmer
 from stopwords import worte
 
 
-@st.cache_resource#(suppress_st_warning=True)
+@st.cache(suppress_st_warning=True)
 def download_punkt():
     nltk.download("punkt")
 
 
-@st.cache_data#(suppress_st_warning=True)
+@st.cache(suppress_st_warning=True)
 def load_data_from_json():
     # st.write("Loading data from json")
-    with open("intents.json") as file:
+    with open("chabodoc/intents.json") as file:
         data = json.load(file)
     return data
 
 
-@st.cache_resource#(suppress_st_warning=True)
-def prepare_data(_STEMMER, data):
+@st.cache(suppress_st_warning=True)
+def prepare_data(STEMMER, data):
     # st.write("Prepare data")
     words = []  # Wörter, die der Chatbot erkennen können soll
     labels = []  # zugehörige Labels (siehe Output unten)
@@ -48,7 +48,7 @@ def prepare_data(_STEMMER, data):
     words = [
         w for w in words if not w in worte
     ]  # Schmeiße Stopwords raus (sowas wie "als" oder "habe"), die irrelevant für die Klassifizierung sind
-    words = [_STEMMER.stem(w.lower()) for w in words if w != "?"]
+    words = [STEMMER.stem(w.lower()) for w in words if w != "?"]
     words = sorted(list(set(words)))
     labels = sorted(labels)
 
