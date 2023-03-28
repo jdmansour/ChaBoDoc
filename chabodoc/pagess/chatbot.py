@@ -127,7 +127,7 @@ def app():
 
     data = load_data_from_json()
     words, labels, docs_x, docs_y = prepare_data(STEMMER, data)
-    sicherheiten = [0 for l in labels]
+    sicherheiten = [torch.tensor([0]) for l in labels]
     tags = labels
 
     if "chatbot_model_trained" not in st.session_state:
