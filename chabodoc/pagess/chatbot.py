@@ -226,7 +226,7 @@ def app():
                 st.markdown(markdown_string, unsafe_allow_html=True)
 
     with st.expander("Details zu aktueller Antwort von Melinda"):
-        if sicherheiten is None:
+        if sicherheiten not in locals():
             sicherheiten = [0,0,0]
         tabelle = {"Label": tags, "Sicherheit": [str(i.item()) for i in sicherheiten]}
         st.table(tabelle)
