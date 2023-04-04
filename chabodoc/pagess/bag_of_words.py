@@ -79,7 +79,7 @@ def bagofwords(STEMMER, s, words):
 
 
 def app():
-    st.markdown("## 3. Bag of Words")
+    st.markdown("## Bag of Words")
     st.write("""Hier kann die Bag-of-Words-Funktion getestet werden.""")
 
     download_punkt()
