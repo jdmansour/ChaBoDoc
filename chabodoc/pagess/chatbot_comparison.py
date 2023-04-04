@@ -16,7 +16,7 @@ def download_punkt():
 # ---------------------------------------------------------------------------------------------------------
 
 def app():
-    st.markdown("## 5. Vergleich der ChatBots")
+    st.markdown("## Vergleich der ChatBots")
 
     st.markdown(
         "Hier können die ChatBots verschiedener Gruppen geladen und getestet werden."
