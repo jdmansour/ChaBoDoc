@@ -1,6 +1,7 @@
 import streamlit as st
 import nltk
 import os
+from random import randint
 
 import pandas as pd
 
@@ -8,6 +9,12 @@ from models import Netpicker
 
 #from utils import Classifier
 #import matplotlib
+
+def load_token():
+    with open("chabodoc/tokenlists/t3.txt", "r") as file:
+        t = file.read()
+    t = t.split("/")
+    return t[randint(0,len(t))]
 
 @st.cache(suppress_st_warning=True)
 def download_punkt():
@@ -84,6 +91,8 @@ def app():
         result_table = pd.DataFrame.from_dict(result_table)
 
         st.table(result_table.style.background_gradient(axis=None, cmap="Blues"))
+        st.markdown("---")
+        st.markdown(f"Überprüfungsschlüssel zur Abgabe: **{load_token()}**")
 
     #st.sidebar.image("./images/Logo_Uni_Luebeck_600dpi.png", use_column_width=True)
     #st.sidebar.image("./images/Logo_UKT.png", use_column_width=True)

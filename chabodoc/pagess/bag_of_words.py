@@ -5,12 +5,18 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 import json
+from random import randint
 
 import nltk
 from nltk.stem.lancaster import LancasterStemmer
 
 from stopwords import worte
 
+def load_token():
+    with open("chabodoc/tokenlists/t2.txt", "r") as file:
+        t = file.read()
+    t = t.split("/")
+    return t[randint(0,len(t))]
 
 @st.cache(suppress_st_warning=True)
 def download_punkt():
@@ -105,18 +111,21 @@ def app():
         for idx in indices_tensor:
             indices_words.append(words[idx])
 
-        st.markdown("**Eingabe: **")
+        st.markdown("**Eingabe:**")
         st.code(input_sentence)
         st.markdown("---")
-        st.markdown("**Token: **")
+        st.markdown("**Token:**")
         st.code(s_words_tokenize)
         st.markdown("---")
-        st.markdown("**Wortstamm: **")
+        st.markdown("**Wortstamm:**")
         st.code(s_words)
         st.markdown("---")
-        st.markdown("**Indizes (Wert 1): **")
+        st.markdown("**Indizes (Wert 1):**")
         st.code(indices_tensor)
         st.markdown("---")
-        st.markdown("**Wörter an den Indizes mit Wert 1: **")
+        st.markdown("**Wörter an den Indizes mit Wert 1:**")
         st.code(indices_words)
+        st.markdown("---")
+        st.markdown(f"Überprüfungsschlüssel zur Abgabe: **{load_token()}**")
+        
 

@@ -5,6 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 import json
+from random import randint
 
 import nltk
 from nltk.stem.lancaster import LancasterStemmer
@@ -17,6 +18,11 @@ from pagess.chat_tree import answer_tree
 import os
 #import dropbox
 
+def load_token():
+    with open("chabodoc/tokenlists/t1.txt", "r") as file:
+        t = file.read()
+    t = t.split("/")
+    return t[randint(0,len(t))]
 
 class Classifier(nn.Module):
     def __init__(self, dims=[]):
@@ -234,4 +240,6 @@ def app():
         st.markdown(tag_string)
         sicher_string = "Sicherheit: " + str(st.session_state["sicher"][-1])
         st.markdown(sicher_string)"""
+        st.markdown("---")
+        st.markdown(f"Überprüfungsschlüssel zur Abgabe: **{load_token()}**")
         
