@@ -78,7 +78,7 @@ def get_response_tree_2(tree_id, case, tag, prediction):
 
 def get_response_tree_3(tree_id, case, tag, prediction):
     # tree 3
-        if case == 1:
+    if case == 1:
         if tag == "bad words":
             response = "Du klingst nicht so zufrieden. Was müsste sich Deiner Meinung nach ändern, damit es Dir besser gefällt?"
             case = 6
