@@ -3,7 +3,7 @@ import streamlit as st
 
 # Custom imports
 from multipage import MultiPage
-from pages import (
+from pagess import (
     main_page,
     general_information,
     chatbot,
