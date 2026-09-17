@@ -16,7 +16,7 @@ def load_token():
     t = t.split("/")
     return t[randint(0,len(t))]
 
-@st.cache(suppress_st_warning=True)
+@st.cache_resource
 def download_punkt():
     nltk.download("punkt")
 

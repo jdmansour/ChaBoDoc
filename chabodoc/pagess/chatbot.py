@@ -38,12 +38,12 @@ class Classifier(nn.Module):
         return out
 
 
-@st.cache(suppress_st_warning=True)
+@st.cache_resource
 def download_punkt():
     nltk.download("punkt")
 
 
-@st.cache(suppress_st_warning=True)
+@st.cache_data
 def load_data_from_json():
     # st.write("Loading data from json")
     with open("chabodoc/intents.json", encoding="utf-8") as file:
@@ -71,8 +71,10 @@ def bagofwords(STEMMER, s, words):
     return torch.tensor(bag).float()
 
 
-@st.cache(suppress_st_warning=True)
-def prepare_data(STEMMER, data):
+@st.cache_data
+# The stemmer is not hashable, we must prefix it with an underscore so
+# cache_data doesn't use it as a cache key.
+def prepare_data(_STEMMER, data):
     # st.write("Prepare data")
     words = []  # Wörter, die der Chatbot erkennen können soll
     labels = []  # zugehörige Labels (siehe Output unten)
@@ -94,7 +96,7 @@ def prepare_data(STEMMER, data):
     words = [
         w for w in words if not w in worte
     ]  # Schmeiße Stopwords raus (sowas wie "als" oder "habe"), die irrelevant für die Klassifizierung sind
-    words = [STEMMER.stem(w.lower()) for w in words if w != "?"]
+    words = [_STEMMER.stem(w.lower()) for w in words if w != "?"]
     words = sorted(list(set(words)))
     labels = sorted(labels)
 
