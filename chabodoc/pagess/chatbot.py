@@ -40,7 +40,7 @@ class Classifier(nn.Module):
 
 @st.cache_resource
 def download_punkt():
-    nltk.download("punkt")
+    nltk.download("punkt_tab")
 
 
 @st.cache_data

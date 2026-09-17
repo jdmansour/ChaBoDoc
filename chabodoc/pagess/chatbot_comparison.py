@@ -18,7 +18,7 @@ def load_token():
 
 @st.cache_resource
 def download_punkt():
-    nltk.download("punkt")
+    nltk.download("punkt_tab")
 
 # ---------------------------------------------------------------------------------------------------------
 
